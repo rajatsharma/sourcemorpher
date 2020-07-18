@@ -1,4 +1,4 @@
-import { FileInfo, JSCodeshift, ImportSpecifier, ImportDefaultSpecifier, ImportNamespaceSpecifier } from 'jscodeshift';
+import { FileInfo, ImportDefaultSpecifier, ImportNamespaceSpecifier, ImportSpecifier, JSCodeshift } from 'jscodeshift';
 
 function compareSpecifiers(
   a: ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier,

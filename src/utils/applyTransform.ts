@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import jscodeshift, { Transform, Options } from 'jscodeshift';
+import jscodeshift, { Options, Transform } from 'jscodeshift';
 import chooseJSCodeshiftParser from 'jscodeshift-choose-parser';
 
 export type AsyncTransform = (
