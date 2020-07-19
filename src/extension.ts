@@ -8,7 +8,7 @@ export function activate(context: vscode.ExtensionContext): void {
   const disposable = vscode.commands.registerCommand(
     'sourcemorpher.sortSpecifiedImports', async () => {
       await applyTransform(sortSpecifiedImports);
-      vscode.window.showInformationMessage('Hello World from sourcemorpher!');
+      vscode.window.showInformationMessage('Done 🎉');
     },
   );
 
