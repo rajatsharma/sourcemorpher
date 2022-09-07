@@ -1,6 +1,6 @@
-import * as vscode from 'vscode';
-import jscodeshift, { Options, Transform } from 'jscodeshift';
-import chooseJSCodeshiftParser from 'jscodeshift-choose-parser';
+import * as vscode from "vscode";
+import jscodeshift, { Options, Transform } from "jscodeshift";
+import chooseJSCodeshiftParser from "jscodeshift-choose-parser";
 
 export type AsyncTransform = (
   ...args: Parameters<Transform>
@@ -8,7 +8,7 @@ export type AsyncTransform = (
 
 export default async function applyTransform(
   transform: Transform | AsyncTransform,
-  options?: Options,
+  options?: Options
 ): Promise<string | void | null | undefined> {
   const { window } = vscode;
   const { activeTextEditor: editor } = window;
@@ -19,9 +19,9 @@ export default async function applyTransform(
       location: vscode.ProgressLocation.Notification,
     },
     async (
-      progress: vscode.Progress<{ increment?: number; message?: string }>,
+      progress: vscode.Progress<{ increment?: number; message?: string }>
     ): Promise<string | void | null | undefined> => {
-      progress.report({ message: 'Applying ...' });
+      progress.report({ message: "Applying ..." });
 
       const code = editor.document.getText();
       const file = editor.document.fileName;
@@ -32,11 +32,11 @@ export default async function applyTransform(
       let parser = options ? options.parser : null;
       if (!parser) {
         switch (editor.document.languageId) {
-          case 'typescript':
-            parser = 'ts';
+          case "typescript":
+            parser = "ts";
             break;
-          case 'typescriptreact':
-            parser = 'tsx';
+          case "typescriptreact":
+            parser = "tsx";
             break;
           default:
             parser = chooseJSCodeshiftParser(file);
@@ -63,20 +63,22 @@ export default async function applyTransform(
           selectionStart,
           selectionEnd,
           ...options,
-        },
+        }
       );
 
       if (newCode && newCode !== code) {
-        await editor.edit((edit) => edit.replace(
-          new vscode.Range(
-            editor.document.positionAt(0),
-            editor.document.positionAt(code.length),
-          ),
-          newCode,
-        ));
+        await editor.edit((edit) =>
+          edit.replace(
+            new vscode.Range(
+              editor.document.positionAt(0),
+              editor.document.positionAt(code.length)
+            ),
+            newCode
+          )
+        );
       }
 
       return newCode;
-    },
+    }
   );
 }

@@ -1,14 +1,20 @@
-import { FileInfo, ImportDefaultSpecifier, ImportNamespaceSpecifier, ImportSpecifier, JSCodeshift } from 'jscodeshift';
+import {
+  FileInfo,
+  ImportDefaultSpecifier,
+  ImportNamespaceSpecifier,
+  ImportSpecifier,
+  JSCodeshift,
+} from "jscodeshift";
 
 function compareSpecifiers(
   a: ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier,
-  b: ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier,
+  b: ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier
 ): number {
-  if (!('imported' in a)) {
+  if (!("imported" in a)) {
     return 1;
   }
 
-  if (!('imported' in b)) {
+  if (!("imported" in b)) {
     return -1;
   }
 
@@ -25,7 +31,8 @@ function compareSpecifiers(
 }
 
 export default function transformer(
-  file: FileInfo, api: { jscodeshift: JSCodeshift },
+  file: FileInfo,
+  api: { jscodeshift: JSCodeshift }
 ): string {
   const j = api.jscodeshift;
 
